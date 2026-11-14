@@ -1,0 +1,22 @@
+services:
+  db:
+    image: pgvector/pgvector:0.8.7-pg18-trixie
+    environment:
+      POSTGRES_USER: glaux
+      POSTGRES_PASSWORD: ${GLAUX_DB_PASSWORD:-glaux}
+      POSTGRES_DB: glaux
+    ports:
+      # Local only. Do not expose the database on other interfaces.
+      - "127.0.0.1:5432:5432"
+    volumes:
+      # Postgres 18 images keep data under /var/lib/postgresql/<major>/docker.
+      - glaux-pg:/var/lib/postgresql
+      - ./docker/initdb:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U glaux -d glaux"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  glaux-pg:

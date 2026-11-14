@@ -1,0 +1,33 @@
+[project]
+name = "glaux"
+version = "0.1.0"
+description = "Greek public spending monitor: searchable Diavgeia decisions with extracted facts"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "psycopg[binary]>=3.3.9",
+]
+
+[project.scripts]
+glaux = "glaux.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.11.17,<0.12"]
+build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["db: needs a running Postgres test database"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+    "ruff>=0.17.5",
+]

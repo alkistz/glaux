@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+
+# Local settings and secrets
+.env
+
+# Data. Never commit harvested data, PDFs, dumps or model caches.
+data/
+*.pdf
+*.dump
+*.sql.gz
+*.parquet
+models/
+.cache/
