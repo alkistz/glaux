@@ -60,6 +60,22 @@ characters (about 330 tokens for XLM-R tokenizers).
 - At about 17,000 decisions a day, BGE-M3 embeds a day's subjects in under 4 minutes. Chunks
   depend on document length, measured in stage 3.
 
+First estimate for one year of chunks, assuming about 5 million in-scope decisions a year and about
+330 tokens per chunk. API prices are from memory, not checked; proprietary tokenizers may count
+Greek as more tokens.
+
+| | 3 chunks per decision | 10 chunks per decision |
+|---|---|---|
+| BGE-M3 on this laptop | about 32 days | about 107 days |
+| multilingual-e5-small on this laptop | about 3 days | about 10 days |
+| New decisions each day, BGE-M3 local | about 2 hours | about 7 hours |
+| Hosted BGE-M3, about $0.01 per million tokens | about $50 | about $165 |
+| Proprietary API, $0.02 to $0.15 per million tokens | $100 to $750 | $330 to $2,500 |
+
+Subjects for a year take about 20 hours with BGE-M3 locally, so no API is needed for subjects or
+queries. The one PDF fetched so far has about 7 pages, which suggests the higher column, but one
+document proves nothing. The spec now plans a switchable embedding backend (stage 5).
+
 ## 2026-11-14: stage 0, scaffold
 
 Done:

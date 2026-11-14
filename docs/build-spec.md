@@ -95,7 +95,8 @@ Add a dependency in the stage that first needs it, not before.
 | 1 | httpx | HTTP client with timeouts |
 | 2 | pgvector | adapter for the vector type (can wait until stage 5) |
 | 3 | pypdf | PDF text extraction, BSD licence |
-| 5 | sentence-transformers (optional group `embed`) | BGE-M3; pulls in torch, so keep it optional |
+| 5 | sentence-transformers (optional group `embed`) | local embeddings; pulls in torch, so keep it optional |
+| 5 | none extra | the `http` embedding backend uses httpx, already a dependency |
 
 CLI is `argparse`. Migrations are numbered SQL files run by `glaux db migrate`. No ORM, no web
 framework, no task queue.
@@ -215,7 +216,9 @@ side by side and are never merged. Re-running a rule replaces only that rule's r
 **chunks** (stage 5): `id`, `ada`, `seq`, `text`, `text_norm`, `tsv`, `embedding vector(1024)`,
 `model`, unique on `(ada, seq)`.
 
-**subject_embeddings** (stage 5): `ada` primary key, `embedding vector(1024)`, `model`, `embedded_at`.
+**subject_embeddings** (stage 5): `ada` primary key, `embedding vector(1024)`, `model`, `backend`,
+`embedded_at`. `chunks` also gets `backend`. The vector size follows the chosen model (1024 for
+BGE-M3, 384 for multilingual-e5-small).
 
 Vector indexes: HNSW with `vector_cosine_ops`, built after the bulk load.
 
@@ -306,7 +309,10 @@ The log records requests made, wall time, decisions per second and database size
   if it would take more than a few hours.
 
 Accept, reported per decision type: share with usable text, share needing OCR, share failed, median
-PDF size, median text length, documents per hour. Twenty random documents are checked by eye for Greek
+PDF size, median text length, documents per hour, and chunks per document. Also measure how much
+of the text comes before the operative part (from "Αποφασίζουμε" or "Αποφασίζει" onwards). The
+opening list of laws is near-identical across decisions, so chunking only the operative part may
+cut embedding cost a lot. Twenty random documents are checked by eye for Greek
 text quality (broken encoding, lost accents, words split by hyphens or columns) and the findings are
 noted.
 
@@ -351,6 +357,28 @@ roadmap step 3 and comes after phase 1.
    while e5-small was 10 times faster. Compare BGE-M3 and e5-small on the real eval set below before
    embedding chunks at scale. Qwen3-Embedding-0.6B is out: its tokenizer turns Greek into about 3
    times as many tokens, and it was slower and worse.
+
+   **Switchable backend.** Where vectors are computed is configuration, not code:
+
+   - `local`: sentence-transformers on this machine. The default, and the only backend used for
+     search queries unless the owner decides otherwise.
+   - `http`: any endpoint that speaks the OpenAI-style `POST /v1/embeddings` protocol, which most
+     hosts of open models offer. Use it for a large backfill when local is too slow. Plain httpx
+     with the retry logic from `glaux.http`; no provider SDKs.
+   - Both sit behind one small interface, `embed(texts) -> vectors`, with a fake backend for tests.
+   - Every stored vector records `model` and `backend`. Search only compares vectors from the same
+     model, and refuses to mix models.
+   - Before vectors from two backends are mixed for one model (for example a hosted backfill plus
+     local queries), embed the same 200 texts with both and require cosine similarity of at least
+     0.99 for each pair. Record the result in the log.
+   - The `http` backend sends decision text, which can contain personal data, to a third party.
+     It runs only with `--allow-remote` on the command line, prints the host it is sending to, and
+     its first use needs the owner's OK (`CLAUDE.md`).
+   - Settings: `GLAUX_EMBED_BACKEND` (`local` or `http`), `GLAUX_EMBED_MODEL`, and for `http`
+     `GLAUX_EMBED_URL` and `GLAUX_EMBED_API_KEY`. The key lives in `.env` only.
+
+   Which backend to use for the chunk backfill depends on chunk counts from stage 3 and quality from
+   the eval below. `docs/log.md` (2026-11-14) has a first cost and time estimate.
 5. **Ranking** (`search.py`): four lists of the top 100 each (FTS on subjects, FTS on chunks, vector on
    subjects, vector on chunks). Chunk lists are collapsed to the best chunk per decision. Fuse with
    reciprocal rank fusion, score = sum over lists of 1 / (60 + rank). Filters for date range,
@@ -393,7 +421,7 @@ takes under 1 second at p95 on the test week.
 | Value for `GLAUX_CONTACT` | done: the repo URL |
 | Key the harvest on submission day instead of issue day | before stage 2 |
 | Harvest all decision types, or only spending types | after stage 2 shows volumes |
-| Local embeddings, a hosted endpoint for the same open model, or a proprietary API | after stage 5 |
+| Embedding backend for the chunk backfill: local, a hosted endpoint for the same open model, or a proprietary API | after stage 3 (chunk counts) and stage 5 (quality) |
 | Which years define the first real corpus | after stage 2 |
 | Keep PDFs or only their text; how much OCR is needed | after stage 3 |
 | Where this runs long term, given embedding cost | after stage 5 measures throughput |
