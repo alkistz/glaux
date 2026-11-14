@@ -1,8 +1,8 @@
 # glaux build spec
 
-Status: draft of 2026-11-14, written before any request to the live Diavgeia API. Statements about
-Diavgeia carry an assumption id (A1, A2, ...) and are unverified. Stage 1 checks each one and records
-the result in `docs/log.md`. Update this file wherever reality differs, and say so in the log.
+Status: draft of 2026-11-14. Statements about Diavgeia carry an assumption id (A1, A2, ...). The
+first probe (2026-11-14, 19 requests) checked most of them; the table below gives each one's status
+and `docs/log.md` has the details. Update this file wherever reality differs, and say so in the log.
 
 Read `docs/context.md` first for why this exists. `CLAUDE.md` holds the working rules. This file says
 what to build and how to know each stage is done.
@@ -67,7 +67,8 @@ src/glaux/
   config.py               settings from the environment and .env
   db.py                   connection and migration runner
   sql/NNN_name.sql        migrations, applied in order, plain SQL
-  diavgeia/client.py      polite HTTP client                       (stage 1)
+  http.py                 polite HTTP client, for every service    (stage 1)
+  probe.py                glaux probe                              (stage 1)
   diavgeia/parse.py       API JSON to row values, pure             (stages 1 and 2)
   harvest.py              day-by-day metadata harvest              (stage 2)
   documents.py            PDF fetch and text extraction            (stage 3)
@@ -132,30 +133,34 @@ These apply to every network call, in every stage.
 
 ## Diavgeia API: working assumptions
 
-The arXiv corpus paper (2512.05647, decisions from 2021) lists decision fields that match A5. That is
-corroboration from a third party, not verification.
+Status after the first probe (2026-11-14). Samples: one day of issue dates (2026-10-14, first 500
+of 1,341) and one deep page of 1 to 14 October (500 of 237,596). Raw responses are in
+`data/probe/` (not committed).
 
-| Id | Assumption | Affects |
+| Id | Assumption | Status |
 |---|---|---|
-| A1 | Base URL `https://diavgeia.gov.gr/opendata/`. JSON via a `.json` suffix or `Accept: application/json`. No key. | client |
-| A2 | `GET /search` filters on `from_issue_date` and `to_issue_date` (YYYY-MM-DD), `type`, `org`, and pages with `page` (from 0) and `size`. The response looks like `{info: {total, page, size, actualSize}, decisions: [...]}`. | harvest |
-| A3 | `size` is capped (believed 500). Deep pagination may also be capped at some total. | harvest splitting |
-| A4 | Search results carry the full decision record, including `extraFieldValues`, so no per-decision request is needed. | request count |
-| A5 | A decision has `ada`, `protocolNumber`, `subject`, `issueDate` (epoch ms), `submissionTimestamp`, `publishTimestamp`, `organizationId`, `unitIds`, `signerIds`, `decisionTypeId`, `thematicCategoryIds`, `status`, `versionId`, `privateData` (boolean), `documentUrl`, `extraFieldValues`, `attachments`. | schema, parser |
-| A6 | `documentUrl` serves the PDF, usually `https://diavgeia.gov.gr/doc/{ada}`. | documents |
-| A7 | For spending types, `extraFieldValues` holds amounts and counterparty tax IDs in a type-specific shape described by `GET /types/{uid}/details`. | API facts |
-| A8 | Spending types include Β.1.3 commitment, Β.2.1 expense approval, Β.2.2 payment finalisation, Δ.1 direct award, Δ.2.1 tender notice summary, Δ.2.2 award. Exact uids come from `GET /types`. | scope |
-| A9 | `GET /organizations` and `GET /types` list all bodies and decision types. | reference tables |
-| A10 | A correction keeps the ADA and gets a new `versionId`. A revocation changes `status`. Searching again returns the current version. | upserts |
-| A11 | Decisions can be published days or weeks after their issue date, so past days keep gaining decisions. | incremental harvest |
-| A12 | No server-side filter on amount. | design |
-| A13 | No documented rate limit. The arXiv paper mentions "request limits", so assume they exist. | client |
-| A14 | `issueDate` is local (Europe/Athens) midnight expressed as UTC epoch ms. | day boundaries |
-| A15 | KIMDIS ids (ADAM) look like two year digits, one of `REQ`, `PROC`, `AWRD`, `SYMV`, `PAY`, then 9 digits, for example `23PROC012345678`. | extraction |
-| A16 | ADAs are 10 characters, a hyphen, then 3 characters, using digits and Greek capitals. | extraction |
+| A1 | Base URL `https://diavgeia.gov.gr/opendata/`, JSON via `.json` suffix, no key. | Confirmed. nginx, no rate-limit headers. |
+| A2 | `GET /search` filters on `from_issue_date`, `to_issue_date`, `type`, pages with `page` (from 0) and `size`; response `{info, decisions}`. | Confirmed, with a catch: the API silently adds `status:"Αναρτημένη"` (published only) and `submissionTimestamp:[from_issue_date TO now]`. `info.query` shows the real query. `status=all` removes the status filter. `org` not tried yet. |
+| A3 | `size` is capped. Deep pagination may be capped. | `size` is silently capped at 500. Page 40 at size 500 (offset 20,000) works; no cap found up to there. |
+| A4 | Search results carry the full record, so no per-decision request is needed. | Confirmed: identical to `GET /decisions/{ada}` for three decisions, including `extraFieldValues`. |
+| A5 | Decision fields as listed in the arXiv paper. | Confirmed, plus `adam` (always null at top level in 1,000 sampled), `url` (a `luminapi` link), `documentChecksum` (null), `warnings`, `correctedVersionId`. `status` is `PUBLISHED` in records. |
+| A6 | `documentUrl` serves the PDF at `https://diavgeia.gov.gr/doc/{ada}`. | Confirmed for one decision (144 KB, about 7 pages). |
+| A7 | `extraFieldValues` holds amounts and tax IDs per type, described by `GET /types/{uid}/details`. | Confirmed, richer than expected. Β.2.1 has a nested schema: `org {afm, afmType, name}`, `sponsor[] {sponsorAFMName {afm, afmType, afmCountry, name}, expenseAmount {amount, currency}, cpv, kae}`, `relatedAnalipsiYpoxreosis[]` (the commitment's ADA), `relatedDecisions[]`, `adam`. Β.1.3 has `amountWithVAT`, `amountWithKae`, `financialYear`, `budgettype`. Amounts are JSON numbers: parse with `Decimal`. |
+| A8 | Spending type ids Β.1.3, Β.2.1, Β.2.2, Δ.1, Δ.2.1, Δ.2.2. | Confirmed. The ids are these codes, in Greek capitals. `/types` lists 43 types, including parent groups. |
+| A9 | `/organizations` and `/types` list everything. | Confirmed. One response each: 43 types; 5,435 organisations (2.5 MB, 19 s). Organisations include `vatNumber`, `supervisorId`, and an official's email (`odeManagerEmail`), which we do not copy into derived tables. |
+| A10 | Corrections keep the ADA with a new `versionId`; revocations change `status`. | Partly confirmed. `/decisions/{ada}/versionlog.json` lists versions with status. On 2026-10-14, `status=all` returns 1,413 against 1,341 published. A revoked record has not been seen yet. |
+| A11 | Decisions are published days or weeks after their issue date. | Confirmed, strongly. Decisions issued on 2026-10-14 were still arriving on 2026-11-13. Lag in a month sample: median 3 days. |
+| A12 | No server-side filter on amount. | Not checked. |
+| A13 | Rate limits unknown. | 19 requests at 1 per second, no 429s, no limit headers. Still unknown. |
+| A14 | `issueDate` is Athens midnight. | Wrong. About 70% are midnight UTC (03:00 Athens in summer), 30% Athens midnight. A one-day range matches a single instant, so it only returns the second group. The Athens-local date of the timestamp is correct for both. Query windows must cover the whole day. |
+| A15 | ADAM is two year digits, a type, nine digits. | Confirmed in `extraFieldValues.adam` (467 of 1,000 sampled): `PAY`, `REQ`, `AWRD`, `PROC` seen. Main join key to KIMDIS. |
+| A16 | ADAs are 10 characters, hyphen, 3. | Wrong. Before the hyphen: 5, 7, 8 or 10 characters; then 3. Digits and Greek capitals only. |
+| A17 | `from_date` and `to_date` filter on submission time. | New, not checked. Needed for the stage 2 design below. |
 
-The probe also checks whether Diavgeia offers bulk exports that would make a day-by-day backfill
-unnecessary for older years.
+Privacy flag: `privateData` was true for 29 of 1,000 sampled decisions.
+
+Volume: decisions issued 1 to 14 October 2026 and published by 14 November: 237,596, about 17,000
+a day across all types. Bulk exports were not looked for yet.
 
 ## Data model
 
@@ -182,7 +187,8 @@ Draft shapes, to be fixed against the probe results:
 | `subject` text | as received |
 | `subject_norm` text | normalised for search (stage 5) |
 | `subject_tsv` tsvector | generated from `subject_norm` with config `simple` |
-| `issue_date` date | Athens local date (A14) |
+| `issue_date` date | Athens-local date of the timestamp (A14) |
+| `adam` text | from `extraFieldValues.adam`, KIMDIS join key (A15) |
 | `submitted_at`, `published_at` timestamptz | |
 | `org_uid`, `type_uid` text | no foreign keys, since reference lists may lag; a check query reports orphans |
 | `private_data` boolean | |
@@ -190,10 +196,12 @@ Draft shapes, to be fixed against the probe results:
 | `raw` jsonb not null | the full record |
 | `first_seen_at`, `updated_at` timestamptz | |
 
-Indexes: `issue_date`, `(type_uid, issue_date)`, `(org_uid, issue_date)`, GIN on `subject_tsv`.
+Indexes: `issue_date`, `(type_uid, issue_date)`, `(org_uid, issue_date)`, `adam`, GIN on
+`subject_tsv`.
 
-**harvest_days** (stage 2): `day` primary key, `scope` (the type set harvested), `status` (pending,
-running, done, failed), `api_total`, `stored`, `pages`, `requests`, `started_at`, `finished_at`, `error`.
+**harvest_days** (stage 2): `day` primary key (a submission day if the proposal in stage 2 is
+accepted), `scope` (the type set harvested), `status` (pending, running, done, failed),
+`api_total`, `stored`, `pages`, `requests`, `started_at`, `finished_at`, `error`.
 
 **documents** (stage 3): `ada` primary key, `sha256`, `bytes`, `pages`, `text`, `text_chars`,
 `chars_per_page`, `needs_ocr`, `extractor` (name and version), `fetched_at`, `error`. Cached PDFs live at
@@ -254,21 +262,33 @@ Accept: every assumption A1 to A16 has a status in the log (confirmed, wrong wit
 still unknown); fixtures exist for a search page, a decision of each spending type, the types list and
 one type's details; parser tests run against them; this spec is updated.
 
-Blocked on: a value for `GLAUX_CONTACT`.
+Progress (2026-11-14): `glaux probe` built and run once, 18 requests plus 1 by hand, no errors. All
+assumptions have a status above. Still to do: fixtures, `diavgeia/parse.py` and its tests.
 
 ### Stage 2: metadata harvest
 
 `glaux harvest --from DATE --to DATE [--types spending|all] [--refresh]`
 
+Proposal from the probe results, to confirm with the owner before building: key the harvest on
+**submission day**, not issue day. Late publication (A11) is large, so an issue day is never
+finished: 2026-10-14 was still gaining decisions a month later. Every decision is submitted exactly
+once, so a submission-day harvest catches late decisions without re-harvesting old days. Analysis
+still filters on `issue_date`. This depends on A17; if `from_date` and `to_date` do not filter on
+submission time, fall back to issue days with a window covering the whole day (A14) and a
+`--refresh` of recent weeks.
+
 - Default scope is the spending types (A8). Decisions outside scope are not stored. For scoping
   numbers, record each day's `api_total` across all types too, which costs one request per day.
-- For each day in range: mark it running, page through the results, upsert each decision by ADA
-  (update when `version_id` or `status` changes), then mark it done with `api_total`, `stored`, `pages`
-  and `requests`. A failure marks the day failed and the run moves on to the next day.
-- Rerunning picks up pending, failed and interrupted days. `--refresh` re-harvests days already done,
-  to catch late publications (A11) and revocations (A10).
-- If a day's total exceeds the pagination cap (A3), split it by type and then by organisation, and log
-  that this happened.
+- Always pass `status=all` so revoked decisions are seen (A2, A10).
+- For each day in range: mark it running, page through the results at size 500, upsert each
+  decision by ADA (update when `version_id` or `status` changes), then mark it done with
+  `api_total`, `stored`, `pages` and `requests`. A failure marks the day failed and the run moves on.
+- Rerunning picks up pending, failed and interrupted days. `--refresh` re-harvests days already done.
+- Revocations do not change the submission time, so a separate sweep re-checks the status of recent
+  decisions. Design it once a revoked record has been seen.
+- At about 17,000 decisions a day, a day is about 35 pages and a year about 13,000 requests, which
+  is under 4 hours at one request per second.
+- Parse JSON with `Decimal` for numbers.
 - Also loads `organizations` and `decision_types`.
 
 Accept: harvest the test week. Kill it mid-day, rerun, and the end state is the same: no duplicates,
@@ -305,8 +325,8 @@ and at least one snippet from a real fixture.
 | `amount` | Greek format `1.234.567,89` or plain `1234,89`, next to a currency marker (€, EUR, ευρώ in any case or accent form). Parsed to `Decimal`, never float. `qualifier` from nearby words: VAT included (συμπεριλαμβανομένου ΦΠΑ, με ΦΠΑ), excluded (πλέον ΦΠΑ, χωρίς ΦΠΑ), or unknown. |
 | `cpv` | `\d{8}-\d`, valid only when the code is in the CPV 2008 list. Commit the list as a data file with its source noted. |
 | `adam` | The A15 pattern, confirmed or corrected against real text in stage 1. Also match after the label ΑΔΑΜ. |
-| `ada_ref` | Fold Latin look-alike capitals to Greek, then match the A16 pattern. Skip the decision's own ADA. Whether a reference resolves to a known decision is a query-time join, not a stored flag. |
-| API mappers | Map the `extraFieldValues` paths found in stage 1 to `amount`, `afm` and `cpv` facts with `source = api`. |
+| `ada_ref` | Fold Latin look-alike capitals to Greek, then match `[0-9Α-Ω]{5,10}-[0-9Α-Ω]{3}` (A16). Skip the decision's own ADA. Whether a reference resolves to a known decision is a query-time join, not a stored flag. |
+| API mappers | Map `extraFieldValues` to facts with `source = api`: `sponsor[].sponsorAFMName.afm`, `sponsor[].expenseAmount.amount`, `sponsor[].cpv`, `sponsor[].kae`, `amountWithVAT`, `adam`, and the related-ADA fields (A7). For these types the API is the primary source and text extraction is the cross-check. |
 
 Accept: all rule tests pass. The log has per-field counts for the test week, a hand check of 20 random
 matches per field with precision noted, and an agreement report: for decisions with both an API and a
@@ -324,9 +344,13 @@ roadmap step 3 and comes after phase 1.
 3. **Chunking** (`text/chunk.py`): pack paragraphs into chunks of about 1,200 characters with about 200
    characters of overlap, never splitting inside a word. Only for in-scope documents with usable text.
 4. **Embeddings**: `glaux embed subjects|chunks [--batch-size N]`. BGE-M3 dense vectors (1024
-   dimensions, normalised) via sentence-transformers. Embed the original text, not the normalised
-   form. Store the model name and revision. Resumable: only rows without an embedding. This machine has
-   no NVIDIA GPU, so measure CPU throughput and extrapolate to one year of in-scope decisions.
+   dimensions, normalised) via sentence-transformers, in bf16. Embed the original text, not the
+   normalised form. Store the model name and revision. Resumable: only rows without an embedding.
+   A first CPU benchmark on synthetic text (`scripts/bench_embeddings.py`, results in `docs/log.md`)
+   could not separate BGE-M3, multilingual-e5-small and paraphrase-multilingual-mpnet on quality,
+   while e5-small was 10 times faster. Compare BGE-M3 and e5-small on the real eval set below before
+   embedding chunks at scale. Qwen3-Embedding-0.6B is out: its tokenizer turns Greek into about 3
+   times as many tokens, and it was slower and worse.
 5. **Ranking** (`search.py`): four lists of the top 100 each (FTS on subjects, FTS on chunks, vector on
    subjects, vector on chunks). Chunk lists are collapsed to the best chunk per decision. Fuse with
    reciprocal rank fusion, score = sum over lists of 1 / (60 + rank). Filters for date range,
@@ -366,8 +390,10 @@ takes under 1 second at p95 on the test week.
 
 | Decision | When |
 |---|---|
-| Value for `GLAUX_CONTACT` | before stage 1 |
+| Value for `GLAUX_CONTACT` | done: the repo URL |
+| Key the harvest on submission day instead of issue day | before stage 2 |
 | Harvest all decision types, or only spending types | after stage 2 shows volumes |
+| Local embeddings, a hosted endpoint for the same open model, or a proprietary API | after stage 5 |
 | Which years define the first real corpus | after stage 2 |
 | Keep PDFs or only their text; how much OCR is needed | after stage 3 |
 | Where this runs long term, given embedding cost | after stage 5 measures throughput |

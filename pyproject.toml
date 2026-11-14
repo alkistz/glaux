@@ -5,6 +5,7 @@ description = "Greek public spending monitor: searchable Diavgeia decisions with
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "httpx>=0.28.1",
     "psycopg[binary]>=3.3.9",
 ]
 
