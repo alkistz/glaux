@@ -3,6 +3,40 @@
 Newest entries first. For each stage: what was verified against live services, what was not,
 measurements, and blockers for the next stage.
 
+## Where we stopped (2026-11-14, end of day)
+
+Branches: `main` on GitHub has stage 0. `stage-1-probe` is local only, not pushed, three commits
+ahead of `main`: the polite client, `glaux probe`, the probe results below, the embedding
+benchmark, the switchable embedding backend plan and the public web app decision.
+
+Waiting on the owner:
+
+1. Key the stage 2 harvest on submission day instead of issue day (stage 2 in the spec). Check A17
+   with one request first.
+2. Push `stage-1-probe` once stage 1 is done.
+3. Who the public web app is for first (open questions in `docs/context.md`).
+
+Next steps to finish stage 1:
+
+1. Cut fixtures from `data/probe/20261114T013502/`: a search page, one decision of each spending
+   type, the types list and the Β.2.1 type details. Replace natural persons' names and tax IDs
+   with synthetic values (valid checksum) and list sources in `tests/fixtures/README.md`.
+2. Write `diavgeia/parse.py` and its tests: JSON numbers as `Decimal`, issue date as the
+   Athens-local date (A14), ADA and ADAM patterns as found (A15, A16).
+3. Check A17 (`from_date`, `to_date` on submission time) with one request.
+4. Close stage 1 in this log, then delete the raw probe responses that are no longer needed. They
+   contain personal data.
+
+Local state outside git:
+
+- `.env` holds `GLAUX_CONTACT=https://github.com/alkistz/glaux`.
+- The Postgres container `glaux-db-1` is running (`docker compose stop` stops it; data stays in
+  the `glaux-pg` volume).
+- `data/probe/` holds 4.5 MB of raw responses, including personal data. Git-ignored.
+- `~/.cache/huggingface/hub` gained about 6 GB of model weights for the benchmark:
+  multilingual-e5-small, BGE-M3 and Qwen3-Embedding-0.6B. Qwen3 (about 1.2 GB) is no longer needed.
+- Repo-local git `user.email` is the GitHub noreply address.
+
 ## 2026-11-14: stage 1 in progress, first probe
 
 Contact for the User-Agent: `https://github.com/alkistz/glaux` (public, issues on; the README has a

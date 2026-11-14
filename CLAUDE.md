@@ -3,7 +3,10 @@
 Project: glaux (γλαύξ, the owl on Athenian coins). A Greek public spending monitor. Phase 1 is a more
 usable Diavgeia: hybrid keyword and semantic search plus structured facts extracted from decision PDFs.
 
-You are building the code. Stage 0 (scaffold) is done; `docs/log.md` says where things stand.
+You are building the code. Stage 1 (probe) is in progress. Start each session by reading "Where we
+stopped" at the top of `docs/log.md`: it lists what is waiting on me and the next steps.
+
+The end product is a public web app (see `docs/context.md`). Phase 1 builds its backend.
 
 ## Commands
 
