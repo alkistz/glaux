@@ -12,6 +12,11 @@ measured directly. The aim is risk signals that point a human reviewer to places
 Decision: start with a more usable Diavgeia (vector search and metadata extraction), because every later
 indicator depends on being able to find, filter and link decisions.
 
+Decision (2026-11-14): the end product is a public web app that people can use, not only a private
+tool. The MVP is the smallest public version: search plus decision pages (see roadmap step 4). Phase 1
+builds the backend it runs on. What the public app may show about named people and companies is still
+open (see open questions).
+
 ## Open data landscape in Greece
 
 - **data.gov.gr**: national portal, relaunched May 2026 on CKAN. Reported size: 9,523 datasets, 31,441
@@ -102,23 +107,36 @@ below-threshold space the EU-level tools barely see.
 - Route verified leads to the Hellenic National Transparency Authority (aead.gr), investigative
   journalists or prosecutors, with a human-reviewed case file, not a raw score.
 - Be a polite client of public services.
+- A public web app makes us a controller of the personal data it shows, separately from Diavgeia.
+  It needs a legal basis, a privacy notice, a way to handle objection and erasure requests, and a check
+  of the reuse licence for Diavgeia data. Link to the official document on Diavgeia rather than
+  re-hosting PDFs. Get legal advice before launch.
 
 ## Roadmap
 
 1. Validate and fix the pipeline against the live API (`glaux probe`), build real fixtures.
 2. Run a one-week harvest, time every stage, then scope the real corpus (years, decision types, bodies).
 3. Evaluate extraction precision on about 100 hand-checked decisions, per field.
-4. OCR for scanned PDFs (Tesseract, `ell` model).
-5. Pull KIMDIS contracts and join on ADAM. Add TED and registry data where useful.
-6. Peer-benchmarked risk indicators, back-tested on publicly known cases from the press.
-7. Triage interface and a documented path for passing leads to authorities.
+4. Public web app, MVP: search with filters Diavgeia lacks (amount, decision chain), a page per
+   decision with its structured facts and a link to the official PDF, and a page per authority with
+   spending statistics. No risk scores, natural persons masked. Hosted in the EU.
+5. OCR for scanned PDFs (Tesseract, `ell` model).
+6. Pull KIMDIS contracts and join on ADAM. Add TED and registry data where useful.
+7. Peer-benchmarked risk indicators, back-tested on publicly known cases from the press. Published,
+   if at all, only at authority and procedure level.
+8. Triage interface (private) and a documented path for passing leads to authorities.
 
 ## Open questions
 
 - Name: `glaux` chosen on 2026-11-14 (owl of Athena, owl on Athenian silver coins, vigilance). Known overlap: GLAUx is an existing Ancient Greek corpus and query project by Alek Keersmaekers. Availability on PyPI and GitHub was not confirmed; check before publishing anything under this name.
 - Which decision types and which years define the first real corpus.
-- Where this runs long term (laptop, a small server, cloud) given embedding cost.
-- Whether to publish anything, and if so at what aggregation level.
+- Where this runs long term. A public app needs a server that holds the database and runs the query
+  embedding model, so database size and model choice drive hosting cost.
+- Who the public app is for first: journalists and researchers, citizens and local councillors, or
+  businesses following public spending. The answer shapes the search and the pages.
+- What the public app shows about payees: companies (legal persons) by name, natural persons and sole
+  traders masked. Needs a rule to tell them apart (legal-form words such as Α.Ε., Ε.Π.Ε., Ι.Κ.Ε. in
+  the name, tax ID patterns, later the business registry).
 
 ## Sources
 

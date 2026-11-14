@@ -20,6 +20,23 @@ A more usable Diavgeia for spending decisions:
 Not in phase 1: OCR, KIMDIS, TED or registry data, risk indicators, any web interface, anything that
 publishes data.
 
+## Built for a public web app
+
+The end product is a public web app (decided 2026-11-14, see `docs/context.md`). Its MVP comes right
+after phase 1: search, a page per decision and a page per authority. Phase 1 is the backend it runs
+on, so phase 1 follows these rules:
+
+- Commands stay thin. Search, show and statistics live in library functions that return data, and
+  the CLI only prints it. A web layer later calls the same functions.
+- Every fact keeps its provenance: the ADA, the API field or text span it came from, and the link
+  to the official document on Diavgeia. The app links to Diavgeia's PDFs instead of re-hosting them.
+- Payees that may be natural persons, sole traders included, are flagged when facts are extracted
+  (stage 4), so the app can mask them. Draft the rule from real data: legal-form words in the name
+  (Α.Ε., Ε.Π.Ε., Ι.Κ.Ε., Ο.Ε., Ε.Ε.), tax ID patterns, later the business registry.
+- Database size and the query-time embedding model have to fit an affordable server. This weighs on
+  model choice and vector size in stage 5 (for example `halfvec`, or a smaller model).
+- Nothing goes public until the owner has settled the legal questions in `docs/context.md`.
+
 ## Principles
 
 - Raw first. Store every API record as received (`jsonb`). Every derived table can be dropped and
