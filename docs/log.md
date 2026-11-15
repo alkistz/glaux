@@ -3,39 +3,77 @@
 Newest entries first. For each stage: what was verified against live services, what was not,
 measurements, and blockers for the next stage.
 
-## Where we stopped (2026-11-14, end of day)
+## Where we stopped (2026-11-15)
 
-Branches: `main` on GitHub has stage 0. `stage-1-probe` is local only, not pushed, three commits
-ahead of `main`: the polite client, `glaux probe`, the probe results below, the embedding
-benchmark, the switchable embedding backend plan and the public web app decision.
+Stage 1 is done. Branches: `main` on GitHub has stage 0. `stage-1-probe` is local only, not
+pushed, and holds all of stage 1.
 
 Waiting on the owner:
 
-1. Key the stage 2 harvest on submission day instead of issue day (stage 2 in the spec). Check A17
-   with one request first.
-2. Push `stage-1-probe` once stage 1 is done.
+1. Approve the stage 2 harvest design: issue-day backfill, last-modified daily sync, weekly sweep
+   of older issue windows (stage 2 in the spec).
+2. Push `stage-1-probe` and merge it into `main`.
 3. Who the public web app is for first (open questions in `docs/context.md`).
 
-Next steps to finish stage 1:
+Next steps (stage 2, once 1 is approved):
 
-1. Cut fixtures from `data/probe/20261114T013502/`: a search page, one decision of each spending
-   type, the types list and the Β.2.1 type details. Replace natural persons' names and tax IDs
-   with synthetic values (valid checksum) and list sources in `tests/fixtures/README.md`.
-2. Write `diavgeia/parse.py` and its tests: JSON numbers as `Decimal`, issue date as the
-   Athens-local date (A14), ADA and ADAM patterns as found (A15, A16).
-3. Check A17 (`from_date`, `to_date` on submission time) with one request.
-4. Close stage 1 in this log, then delete the raw probe responses that are no longer needed. They
-   contain personal data.
+1. Migration `002`: `decisions`, `decision_types`, `organizations`, `harvest_days`.
+2. `glaux harvest` in backfill mode on the test week, spending types only, then the kill-and-rerun
+   test from the acceptance criteria.
+3. `glaux stats`, and the measurements: requests, wall time, decisions per second, database size,
+   in-scope share of all decisions.
 
 Local state outside git:
 
 - `.env` holds `GLAUX_CONTACT=https://github.com/alkistz/glaux`.
 - The Postgres container `glaux-db-1` is running (`docker compose stop` stops it; data stays in
-  the `glaux-pg` volume).
-- `data/probe/` holds 4.5 MB of raw responses, including personal data. Git-ignored.
-- `~/.cache/huggingface/hub` gained about 6 GB of model weights for the benchmark:
+  the `glaux-pg` volume). No decision data is loaded yet.
+- Raw probe responses were deleted on 2026-11-15 after the fixtures were cut. `data/` is empty.
+- `~/.cache/huggingface/hub` holds about 6 GB of model weights from the benchmark:
   multilingual-e5-small, BGE-M3 and Qwen3-Embedding-0.6B. Qwen3 (about 1.2 GB) is no longer needed.
 - Repo-local git `user.email` is the GitHub noreply address.
+
+## 2026-11-15: stage 1 done
+
+Second probe, `glaux probe --set filters`: 10 requests, no errors, no retries. It checked the
+search terms list, the date filters, whole-day ranges, an amount range, revocations and the issue
+date range limit.
+
+Verified against the live API:
+
+- The simple search cannot be used for harvesting: date parameters become single instants and it
+  adds hidden filters (A2, A17). The first probe's one-day query returned 1,341 of the 23,974
+  decisions issued that day, so it missed about 94%, not 70% as estimated yesterday.
+- The advanced search takes explicit ranges and adds no status filter. It caps any issue-date range
+  at 6 months (new A18).
+- `submissionTimestamp` is the last modification. Revocations move it and add a version with a
+  reason (A10).
+- Amount filtering works server-side (A12 was wrong).
+- Volume: 23,974 decisions issued on 2026-10-14 and 25,715 last modified on 2026-11-13, all types.
+  About 6 million a year. The embedding estimate below assumed 5 million in-scope decisions a year;
+  that still stands as a rough figure until stage 2 measures the in-scope share.
+
+Not verified: the `org` parameter, tax ID filters (`giverAFM` returned nothing for the one body
+tried; persons' tax IDs were deliberately not tried), pagination beyond offset 20,000, which amount
+field `amount` indexes, rate limits, bulk exports.
+
+Built:
+
+- `glaux probe --set filters` with the checks above.
+- 10 fixtures in `tests/fixtures/diavgeia/` (68 KB). Personal data replaced: names and tax IDs of
+  two employees, a sole trader and two companies named after people, signer ids, version-log
+  creators, officials' emails. A search for every original value found none left. Sources are in
+  `tests/fixtures/README.md`.
+- `glaux.diavgeia.parse`: search pages, decisions, types, organisations, version logs. Issue dates
+  as Athens-local dates, `modified_at` from `submissionTimestamp`, odd ADA and ADAM formats as
+  warnings, amounts as `Decimal`, officials' emails and version-log creators dropped.
+- 90 tests pass (44 for the parser).
+
+Found while cutting fixtures: awards (Δ.1, Δ.2.2) name the contractor in `person[]`, not
+`sponsor[]`, and a natural person's name there has the shape `SURNAME,,FIRST,FATHER`. Both are in
+the stage 4 notes in the spec.
+
+Blockers for stage 2: the owner's OK on the harvest design. Nothing technical.
 
 ## 2026-11-14: stage 1 in progress, first probe
 

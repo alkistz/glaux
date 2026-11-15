@@ -12,11 +12,10 @@ import time
 from pathlib import Path
 from typing import Any
 
+from glaux.diavgeia.parse import SPENDING_TYPES
 from glaux.http import PoliteClient, RequestFailed
 
 BASE_URL = "https://diavgeia.gov.gr/opendata/"
-# Greek capitals, as the API returns them in decisionTypeId.
-SPENDING_TYPES = ("Β.1.3", "Β.2.1", "Β.2.2", "Δ.1", "Δ.2.1", "Δ.2.2")
 MAX_REQUESTS = 19  # plus the single exploratory request made by hand, 20 in all
 
 
@@ -128,7 +127,56 @@ def run_probe(client: PoliteClient, out_dir: Path, day: dt.date) -> list[dict[st
     except BudgetSpent as exc:
         p.index.append({"name": str(exc), "error": "request budget spent, skipped"})
     finally:
-        (out_dir / "index.json").write_text(
-            json.dumps(p.index, ensure_ascii=False, indent=1), encoding="utf-8"
-        )
+        _save_index(p)
     return p.index
+
+
+ADVANCED = "search/advanced.json"
+FILTER_PROBE_BUDGET = 10
+
+
+def day_range(field: str, day: dt.date) -> str:
+    """An explicit whole-day range in the advanced search syntax (Athens local time)."""
+    d = day.isoformat()
+    return f"{field}:[DT({d}T00:00:00) TO DT({d}T23:59:59)]"
+
+
+def run_filter_probe(
+    client: PoliteClient, out_dir: Path, issue_day: dt.date, modified_day: dt.date
+) -> list[dict[str, Any]]:
+    """Checks for the harvest design: search terms, date filters, ranges, amount, revocations."""
+    out_dir.mkdir(parents=True, exist_ok=True)
+    p = Probe(client, out_dir, budget=FILTER_PROBE_BUDGET)
+    issued = day_range("issueDate", issue_day)
+    modified = day_range("submissionTimestamp", modified_day)
+    m = modified_day.isoformat()
+    try:
+        p.fetch("search_terms", "search/terms.json")
+        p.fetch("search_terms_common", "search/terms/common.json")
+        p.fetch("simple_from_date", "search.json", {"from_date": m, "to_date": m, "size": 10})
+        p.fetch("adv_issue_full_day", ADVANCED, {"q": issued, "size": 10})
+        p.fetch("adv_modified_day", ADVANCED, {"q": modified, "size": 10})
+        p.fetch(
+            "adv_amount_range",
+            ADVANCED,
+            {"q": f"amount:[25000 TO 30000] AND {issued}", "size": 10},
+        )
+        wide = "issueDate:[DT(2005-01-01T00:00:00) TO DT(2030-12-31T23:59:59)]"
+        p.fetch("adv_issue_range_cap", ADVANCED, {"q": f"{modified} AND {wide}", "size": 10})
+        revoked = p.fetch(
+            "adv_revoked", ADVANCED, {"q": f'status:"Ανακληθείσα" AND {modified}', "size": 3}
+        )
+        if isinstance(revoked, dict) and revoked.get("decisions"):
+            ada = revoked["decisions"][0]["ada"]
+            p.fetch("versionlog_revoked", f"decisions/{ada}/versionlog.json")
+    except BudgetSpent as exc:
+        p.index.append({"name": str(exc), "error": "request budget spent, skipped"})
+    finally:
+        _save_index(p)
+    return p.index
+
+
+def _save_index(p: Probe) -> None:
+    (p.out_dir / "index.json").write_text(
+        json.dumps(p.index, ensure_ascii=False, indent=1, default=str), encoding="utf-8"
+    )

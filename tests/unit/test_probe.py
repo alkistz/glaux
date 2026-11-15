@@ -4,7 +4,15 @@ import json
 import httpx
 
 from glaux.http import PoliteClient
-from glaux.probe import BASE_URL, MAX_REQUESTS, run_probe, shape
+from glaux.probe import (
+    BASE_URL,
+    FILTER_PROBE_BUDGET,
+    MAX_REQUESTS,
+    day_range,
+    run_filter_probe,
+    run_probe,
+    shape,
+)
 
 DECISION = {
     "ada": "ΑΒΓΔ123456-ΕΖΗ",
@@ -49,3 +57,34 @@ def test_probe_saves_everything_and_stays_in_budget(tmp_path):
     assert [e["name"] for e in failed] == ["organizations"]
     pdf = next(e for e in index if e["name"] == "document")
     assert (tmp_path / pdf["file"]).read_bytes() == b"%PDF-1.4"
+
+
+def test_day_range_covers_the_whole_day():
+    assert day_range("issueDate", dt.date(2026, 10, 14)) == (
+        "issueDate:[DT(2026-10-14T00:00:00) TO DT(2026-10-14T23:59:59)]"
+    )
+
+
+def test_filter_probe_follows_a_revoked_decision_to_its_versionlog(tmp_path):
+    seen = []
+
+    def filter_handler(request: httpx.Request) -> httpx.Response:
+        seen.append(request)
+        if "advanced" in request.url.path:
+            return httpx.Response(200, json={"info": {"total": 1}, "decisions": [DECISION]})
+        return httpx.Response(200, json={"terms": []})
+
+    client = PoliteClient(
+        BASE_URL,
+        "glaux/test",
+        0.0,
+        transport=httpx.MockTransport(filter_handler),
+        sleep=lambda s: None,
+    )
+    index = run_filter_probe(client, tmp_path, dt.date(2026, 10, 14), dt.date(2026, 11, 13))
+
+    assert client.stats.requests <= FILTER_PROBE_BUDGET
+    assert index[-1]["name"] == "versionlog_revoked"
+    assert seen[-1].url.path.endswith(f"decisions/{DECISION['ada']}/versionlog.json")
+    queries = [r.url.params.get("q") for r in seen if r.url.params.get("q")]
+    assert any(q.startswith("amount:[25000 TO 30000]") for q in queries)

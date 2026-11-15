@@ -1,0 +1,150 @@
+{
+ "organizations": [
+  {
+   "uid": "52893",
+   "label": "Δ.Ε.Υ.Α. ΣΙΝΤΙΚΗΣ",
+   "abbreviation": null,
+   "latinName": "deya_kerkini",
+   "status": "active",
+   "category": "NPID",
+   "vatNumber": "099208309",
+   "fekNumber": "279",
+   "fekIssue": "fektype_B",
+   "fekYear": "2001",
+   "odeManagerEmail": "redacted@example.invalid",
+   "website": "http://sidiki.gr",
+   "supervisorId": "6277",
+   "supervisorLabel": "ΔΗΜΟΣ ΣΙΝΤΙΚΗΣ",
+   "organizationDomains": []
+  },
+  {
+   "uid": "6019",
+   "label": "ΔΗΜΟΣ ΑΛΕΞΑΝΔΡΟΥΠΟΛΗΣ",
+   "abbreviation": "",
+   "latinName": "Alexandroupolis",
+   "status": "active",
+   "category": "MUNICIPALITY",
+   "vatNumber": "997712303",
+   "fekNumber": "87",
+   "fekIssue": "fektype_A",
+   "fekYear": "2010",
+   "odeManagerEmail": "redacted@example.invalid",
+   "website": "http://www.alexpolis.gr",
+   "supervisorId": "5001",
+   "supervisorLabel": "ΠΕΡΙΦΕΡΕΙΑ ΑΝΑΤΟΛΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ - ΘΡΑΚΗΣ",
+   "organizationDomains": [
+    "LocalGovernance"
+   ]
+  },
+  {
+   "uid": "6114",
+   "label": "ΔΗΜΟΣ ΘΕΣΣΑΛΟΝΙΚΗΣ",
+   "abbreviation": "",
+   "latinName": "Municipality_of_Thessaloniki",
+   "status": "active",
+   "category": "MUNICIPALITY",
+   "vatNumber": "998082845",
+   "fekNumber": "87",
+   "fekIssue": "fektype_A",
+   "fekYear": "2010",
+   "odeManagerEmail": "redacted@example.invalid",
+   "website": "http://www.thessaloniki.gr",
+   "supervisorId": "100054492",
+   "supervisorLabel": "ΥΠΟΥΡΓΕΙΟ ΕΣΩΤΕΡΙΚΩΝ",
+   "organizationDomains": [
+    "LocalGovernance",
+    "CityArchives",
+    "UrbanPlanning"
+   ]
+  },
+  {
+   "uid": "99221499",
+   "label": "2Η ΔΥΠΕ ΠΕΙΡΑΙΩΣ ΚΑΙ ΑΙΓΑΙΟΥ",
+   "abbreviation": null,
+   "latinName": "dype2",
+   "status": "active",
+   "category": "NPDD",
+   "vatNumber": "998998311",
+   "fekNumber": "25",
+   "fekIssue": "fektype_A",
+   "fekYear": "2007",
+   "odeManagerEmail": "redacted@example.invalid",
+   "website": "http://www.2dype.gr",
+   "supervisorId": "100010899",
+   "supervisorLabel": "ΥΠΟΥΡΓΕΙΟ ΥΓΕΙΑΣ ΚΑΙ ΚΟΙΝΩΝΙΚΩΝ ΑΣΦΑΛΙΣΕΩΝ",
+   "organizationDomains": []
+  },
+  {
+   "uid": "6",
+   "label": "ΥΠΟΥΡΓΕΙΟ ΕΘΝΙΚΗΣ ΑΜΥΝΑΣ",
+   "abbreviation": null,
+   "latinName": "ypetha",
+   "status": "active",
+   "category": "MINISTRY",
+   "vatNumber": "090153025",
+   "fekNumber": "35",
+   "fekIssue": "fektype_A",
+   "fekYear": "1995",
+   "odeManagerEmail": "redacted@example.invalid",
+   "website": "http://www.mod.mil.gr",
+   "supervisorId": null,
+   "supervisorLabel": null,
+   "organizationDomains": []
+  },
+  {
+   "uid": "99221129",
+   "label": "ΕΛΛΗΝΙΚΗ ΑΕΡΟΠΟΡΙΚΗ ΒΙΟΜΗΧΑΝΙΑ (Ε.Α.Β.) Α.Ε. (N.43/1975)",
+   "abbreviation": "HAI",
+   "latinName": "HELLENIC",
+   "status": "active",
+   "category": "COMPANYSA",
+   "vatNumber": "094052358",
+   "fekNumber": "93",
+   "fekIssue": "fektype_A",
+   "fekYear": "1975",
+   "odeManagerEmail": "redacted@example.invalid",
+   "website": "http://www.haicorp.com",
+   "supervisorId": "15",
+   "supervisorLabel": "ΥΠΟΥΡΓΕΙΟ ΟΙΚΟΝΟΜΙΚΩΝ",
+   "organizationDomains": [
+    "Industru"
+   ]
+  },
+  {
+   "uid": "100016876",
+   "label": "ΠΕΡΙΦΕΡΕΙΑΚΟΣ ΦΟΡΕΑΣ ΔΙΑΧΕΙΡΙΣΗΣ ΣΤΕΡΕΩΝ ΑΠΟΒΛΗΤΩΝ ΠΕΡΙΦΕΡΕΙΑΣ ΣΤΕΡΕΑΣ ΕΛΛΑΔΑΣ ΑΝΩΝΥΜΗ ΕΤΑΙΡΕΙΑ ΤΩΝ ΟΤΑ",
+   "abbreviation": "ΦΟΔΣΑ ΣΤΕΡΕΑΣ ΕΛΛΑΔΑΣ ΑΕ ΟΤΑ",
+   "latinName": "perifereiakosfodsastereaselladasaeota",
+   "status": "active",
+   "category": "COMPANYSA",
+   "vatNumber": "997502361",
+   "fekNumber": "1369",
+   "fekIssue": "fektype_A",
+   "fekYear": "2015",
+   "odeManagerEmail": "redacted@example.invalid",
+   "website": "http://www.fodsaste.gr",
+   "supervisorId": null,
+   "supervisorLabel": null,
+   "organizationDomains": [
+    "EnvironmentPollution"
+   ]
+  },
+  {
+   "uid": "5009",
+   "label": "ΠΕΡΙΦΕΡΕΙΑ ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ",
+   "abbreviation": null,
+   "latinName": "p.k.m.",
+   "status": "active",
+   "category": "REGION",
+   "vatNumber": "997612598",
+   "fekNumber": "87",
+   "fekIssue": "fektype_A",
+   "fekYear": "2010",
+   "odeManagerEmail": "redacted@example.invalid",
+   "website": "http://www.pkm.gov.gr",
+   "supervisorId": null,
+   "supervisorLabel": null,
+   "organizationDomains": []
+  }
+ ]
+}

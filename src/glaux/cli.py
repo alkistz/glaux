@@ -40,9 +40,12 @@ def cmd_probe(args: argparse.Namespace, settings: Settings) -> int:
 
     agent = user_agent(settings.require_contact())
     stamp = dt.datetime.now().strftime("%Y%m%dT%H%M%S")
-    out_dir = settings.data_dir / "probe" / stamp
+    out_dir = settings.data_dir / "probe" / f"{stamp}-{args.set}"
     with PoliteClient(probe.BASE_URL, agent, settings.request_delay) as client:
-        index = probe.run_probe(client, out_dir, args.day)
+        if args.set == "filters":
+            index = probe.run_filter_probe(client, out_dir, args.day, args.modified_day)
+        else:
+            index = probe.run_probe(client, out_dir, args.day)
         stats = client.stats
     for e in index:
         status = e.get("status") or "-"
@@ -78,6 +81,18 @@ def build_parser() -> argparse.ArgumentParser:
         type=dt.date.fromisoformat,
         default=dt.date(2026, 10, 14),
         help="issue date to sample (default: 2026-10-14)",
+    )
+    probe_parser.add_argument(
+        "--set",
+        choices=("basic", "filters"),
+        default="basic",
+        help="basic: endpoints and record shapes; filters: date filters, ranges, revocations",
+    )
+    probe_parser.add_argument(
+        "--modified-day",
+        type=dt.date.fromisoformat,
+        default=dt.date(2026, 11, 13),
+        help="last-modified date to sample with --set filters (default: 2026-11-13)",
     )
     probe_parser.set_defaults(func=cmd_probe)
     return parser

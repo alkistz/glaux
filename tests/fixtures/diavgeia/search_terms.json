@@ -1,0 +1,348 @@
+{
+ "terms": [
+  {
+   "term": "amount",
+   "label": "Αξία"
+  },
+  {
+   "term": "antikeimeno",
+   "label": "Αντικείμενο παραχώρησης"
+  },
+  {
+   "term": "assignmentType",
+   "label": "Κατηγορία ανάθεσης προμηθειών/ υπηρεσιών"
+  },
+  {
+   "term": "contestProgressType",
+   "label": "Διαδικασία Διαγωνισμού"
+  },
+  {
+   "term": "contractDuration",
+   "label": "Διάρκεια σύμβασης"
+  },
+  {
+   "term": "cpv",
+   "label": "CPV"
+  },
+  {
+   "term": "creatorName",
+   "label": "Συντάκτης πράξης"
+  },
+  {
+   "term": "currency",
+   "label": "Νόμισμα"
+  },
+  {
+   "term": "diavgeiaVersion",
+   "label": "Έκδοση Συσ. Διαύγεια"
+  },
+  {
+   "term": "content",
+   "label": "Κείμενο πράξης"
+  },
+  {
+   "term": "documentType",
+   "label": "Τύπος εγγράφου"
+  },
+  {
+   "term": "decisionTypeUid",
+   "label": "Uid Τύπου πράξης"
+  },
+  {
+   "term": "decisionType",
+   "label": "Είδος πράξης"
+  },
+  {
+   "term": "eidosPraxis",
+   "label": "Είδος πράξης"
+  },
+  {
+   "term": "employerOrg",
+   "label": "Φορέας που υφίσταται η θέση"
+  },
+  {
+   "term": "financedProject",
+   "label": "Ενσωμάτωση ευρωπαϊκού δικαίου"
+  },
+  {
+   "term": "financialYear",
+   "label": "Οικονομικό Έτος"
+  },
+  {
+   "term": "giverAFMCountry",
+   "label": "Κράτος - μέλος της ΕΕ για το ΑΦΜ του φορέα που πραγματοποιεί τη δαπάνη"
+  },
+  {
+   "term": "giverAFMType",
+   "label": "Τύπος ΑΦΜ του φορέα που πραγματοποιεί τη δαπάνη"
+  },
+  {
+   "term": "giverAFM",
+   "label": "ΑΦΜ του φορέα που πραγματοποιεί τη δαπάνη"
+  },
+  {
+   "term": "giverName",
+   "label": "Επωνυμία του φορέα που πραγματοποεί τη δαπάνη"
+  },
+  {
+   "term": "giverNoVATOrg",
+   "label": "Οργανισμός χωρίς ΑΦΜ που πραγματοποιεί τη δαπάνη"
+  },
+  {
+   "term": "gnomodotisiEidosForea",
+   "label": "Είδος φορέα που γνωμοδοτεί"
+  },
+  {
+   "term": "ada",
+   "label": "ΑΔΑ"
+  },
+  {
+   "term": "interCountryLaw",
+   "label": "Εισάγει διακρατική συμφωνία"
+  },
+  {
+   "term": "isAccountApprovalForOtherOrg",
+   "label": "Έγκριση Ισολογισμού/ Απολογισμού τρίτου Φορέα"
+  },
+  {
+   "term": "isBudgetApprovalForOrg",
+   "label": "Έγκριση προϋπολογισμού τρίτου φορέα"
+  },
+  {
+   "term": "issueDate",
+   "label": "Ημ/νία έκδοσης"
+  },
+  {
+   "term": "kaeNumber",
+   "label": "Αριθμός ΚΑΕ"
+  },
+  {
+   "term": "lawEuropeanInlining",
+   "label": "Ενσωμάτωση ευρωπαϊκού δικαίου"
+  },
+  {
+   "term": "manifestContractType",
+   "label": "Τύπος σύμβασης"
+  },
+  {
+   "term": "manifestSelectionCriterion",
+   "label": "Κριτήριο επιλογής"
+  },
+  {
+   "term": "municipality",
+   "label": "Δήμος"
+  },
+  {
+   "term": "numberOfPeople",
+   "label": "Αρ. Φυσικών Προσώπων"
+  },
+  {
+   "term": "orgBudgetCode",
+   "label": "Κωδικός Προϋπολογισμού Φορέα"
+  },
+  {
+   "term": "organisationCategory",
+   "label": "Κατηγορία Φορέα"
+  },
+  {
+   "term": "organisationUnitCategory",
+   "label": "Τύπος Οργαν. Μονάδας"
+  },
+  {
+   "term": "organizationId",
+   "label": "Top 10 Φορείς έκδοσης"
+  },
+  {
+   "term": "organizationLatinName",
+   "label": "Organisation Latin name"
+  },
+  {
+   "term": "organizationUid",
+   "label": "Top 10 φορείς έκδοσης"
+  },
+  {
+   "term": "partialead",
+   "label": "Τμηματική ανάληψη"
+  },
+  {
+   "term": "passAuthority",
+   "label": "Χορηγεί νομοθετικές εξουσιοδοτήσεις"
+  },
+  {
+   "term": "pdfProducer",
+   "label": "Pdf Producer Library"
+  },
+  {
+   "term": "position",
+   "label": "Θέση"
+  },
+  {
+   "term": "primaryOfficer",
+   "label": "Πρωτεύων διατάκτης"
+  },
+  {
+   "term": "privateData",
+   "label": "Περιέχει προσωπικά δεδομένα"
+  },
+  {
+   "term": "protocolNumber",
+   "label": "Αρ. Πρωτοκόλλου"
+  },
+  {
+   "term": "publishTimestamp",
+   "label": "Ημ/νία ανάρτησης"
+  },
+  {
+   "term": "recalledExpenseDecision",
+   "label": "Ανακλητική πράξη"
+  },
+  {
+   "term": "receiverAFMCountry",
+   "label": "Κράτος - μέλος της ΕΕ για το ΑΦΜ του φορέα - αποδέκτη"
+  },
+  {
+   "term": "receiverAFMType",
+   "label": "Τύπος ΑΦΜ του φορέα - αποδέκτη"
+  },
+  {
+   "term": "receiverAFM",
+   "label": "ΑΦΜ αποδέκτη"
+  },
+  {
+   "term": "receiverName",
+   "label": "Επωνυμία αποδέκτη"
+  },
+  {
+   "term": "receiverNoVATOrg",
+   "label": "Οργανισμός χωρίς ΑΦΜ (αποδέκτης)"
+  },
+  {
+   "term": "refersToOtherOrgAccount",
+   "label": "Φορέας τον οποίο αφορά έγκριση Ισολογισμού/Απολογισμού"
+  },
+  {
+   "term": "refersToOtherOrgBudget",
+   "label": "Φορέας που αφορά (Έγκριση προϋπολογισμού)"
+  },
+  {
+   "term": "relatedDecisionsADA",
+   "label": "Σχετ. Πράξη"
+  },
+  {
+   "term": "secondaryOfficer",
+   "label": "Δευτερεύων διατάκτης"
+  },
+  {
+   "term": "signerId",
+   "label": "Τελικός Υπογράφων"
+  },
+  {
+   "term": "signerPosition",
+   "label": "Θέση υπογράφοντος στον οργανισμό"
+  },
+  {
+   "term": "signerUid",
+   "label": "Uid Τελικού Υπογράφοντος"
+  },
+  {
+   "term": "status",
+   "label": "Κατάσταση (Δημοσιευμένη/Ανακληθείσα)"
+  },
+  {
+   "term": "subject",
+   "label": "Θέμα"
+  },
+  {
+   "term": "q",
+   "label": "Γενικός όρος αναζήτησης"
+  },
+  {
+   "term": "textArEgkykliou",
+   "label": "Αριθμός Εγκυκλίου"
+  },
+  {
+   "term": "textArPraktikou",
+   "label": "Αριθμός Πρακτικού"
+  },
+  {
+   "term": "textBudgetKind",
+   "label": "Είδος προϋπολογισμού"
+  },
+  {
+   "term": "textBudgetType",
+   "label": "Τύπος προϋπολογισμού"
+  },
+  {
+   "term": "textEntryNumber",
+   "label": "Αριθμός καταχώρησης"
+  },
+  {
+   "term": "textFekAA",
+   "label": "Αριθμός ΦΕΚ"
+  },
+  {
+   "term": "textFekIssue",
+   "label": "Τεύχος ΦΕΚ"
+  },
+  {
+   "term": "textFekYear",
+   "label": "Έτος ΦΕΚ"
+  },
+  {
+   "term": "textFinancialYear",
+   "label": "Οικονομικό Έτος"
+  },
+  {
+   "term": "textKanonistikiPraxiAA",
+   "label": "Αριθμός Κανονιστικής Πράξης"
+  },
+  {
+   "term": "textLawAANomos",
+   "label": "Αριθμός Νόμου"
+  },
+  {
+   "term": "textLawYear",
+   "label": "Έτος Νόμου"
+  },
+  {
+   "term": "textPraxiAA",
+   "label": "Αριθμός Πράξης"
+  },
+  {
+   "term": "textRelatedADA",
+   "label": "Σχετική Πράξη"
+  },
+  {
+   "term": "relatedPartialADA",
+   "label": "Σχετ. Αρχ. Τμηματική"
+  },
+  {
+   "term": "thematicCategoryUid",
+   "label": "Uid Θεματικής κατηγορίας"
+  },
+  {
+   "term": "thematicCategory",
+   "label": "Θεματική κατηγορία"
+  },
+  {
+   "term": "timePeriod",
+   "label": "Χρονική περίοδος"
+  },
+  {
+   "term": "typeOfSullogiko",
+   "label": "Τύπος Οργάνου"
+  },
+  {
+   "term": "unitId",
+   "label": "Μονάδα έκδοσης"
+  },
+  {
+   "term": "unitUid",
+   "label": "Uid Μονάδας έκδοσης"
+  },
+  {
+   "term": "submissionTimestamp",
+   "label": "Ημ/νία τελευταίας τροποποίησης"
+  }
+ ]
+}

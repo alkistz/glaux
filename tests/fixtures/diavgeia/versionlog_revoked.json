@@ -1,0 +1,22 @@
+{
+ "versions": [
+  {
+   "versionId": "2a211517-fa6c-4732-b550-6e99bb796c04",
+   "creator": "0000_0002",
+   "versionTimestamp": 1792488583675,
+   "description": null,
+   "status": "PUBLISHED",
+   "correctedVersionId": null
+  },
+  {
+   "versionId": "0544f3c9-ce36-4ee6-9376-96ba72e70f3b",
+   "creator": "0000_0003",
+   "versionTimestamp": 1794487943332,
+   "description": "Λόγω διπλής ανάρτησης (ΑΔΑ: ΨΣ4Υ469Η2Ξ-6Α2)",
+   "status": "REVOKED",
+   "correctedVersionId": null
+  }
+ ],
+ "ada": "ΨΙΖ0469Η2Ξ-ΙΦΛ",
+ "organizationId": "99221499"
+}

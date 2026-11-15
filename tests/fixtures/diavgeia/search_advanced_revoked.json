@@ -1,0 +1,58 @@
+{
+ "info": {
+  "query": "status:\"Ανακληθείσα\" AND submissionTimestamp:[DT(2026-11-01T00:00:00) TO DT(2026-11-13T23:59:59)] AND issueDate:[DT(2026-05-19T00:00:00) TO DT(2026-11-15T23:59:59)]",
+  "page": 0,
+  "size": 3,
+  "actualSize": 3,
+  "total": 5803,
+  "order": "recent"
+ },
+ "decisions": [
+  {
+   "protocolNumber": "29678",
+   "adam": null,
+   "subject": "ΑΛΕ:31201020000001 Συσκευές θέρμανσης, ψύξης και κλιματισμού",
+   "issueDate": 1792454400000,
+   "organizationId": "99221499",
+   "signerIds": [
+    "900000008"
+   ],
+   "unitIds": [
+    "73128"
+   ],
+   "decisionTypeId": "Β.1.3",
+   "thematicCategoryIds": [
+    "24"
+   ],
+   "extraFieldValues": {
+    "financialYear": 2026,
+    "budgettype": "Τακτικός Προϋπολογισμός",
+    "entryNumber": null,
+    "partialead": false,
+    "recalledExpenseDecision": false,
+    "amountWithVAT": {
+     "amount": 2462.0,
+     "currency": "EUR"
+    },
+    "amountWithKae": [],
+    "relatedPartialADA": null,
+    "relatedDecisions": [],
+    "documentType": "ΠΡΑΞΗ",
+    "adam": null,
+    "decisionDocumentHash": null
+   },
+   "privateData": false,
+   "ada": "ΨΙΖ0469Η2Ξ-ΙΦΛ",
+   "publishTimestamp": 1792488583675,
+   "submissionTimestamp": 1794487943332,
+   "versionId": "0544f3c9-ce36-4ee6-9376-96ba72e70f3b",
+   "status": "REVOKED",
+   "url": "https://diavgeia.gov.gr/luminapi/api/decisions/ΨΙΖ0469Η2Ξ-ΙΦΛ",
+   "documentUrl": null,
+   "documentChecksum": null,
+   "attachments": [],
+   "warnings": null,
+   "correctedVersionId": null
+  }
+ ]
+}

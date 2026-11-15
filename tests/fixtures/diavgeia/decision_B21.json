@@ -1,0 +1,96 @@
+{
+ "protocolNumber": "000469Κ",
+ "adam": null,
+ "subject": "ΠΛΗΡΩΜΗ ΔΑΠΑΝΗΣ ΜΕΤΑΚΙΝΗΣΗΣ ΕΝΤΟΣ ΚΑΙ ΕΚΤΟΣ ΕΔΡΑΣ ΓΙΑ ΤΟ ΠΡΟΓΡΑΜΜΑ ΠΑΡΑΚΟΛΟΥΘΗΣΗΣ ΑΜΠΕΛΟΟΙΝΙΚΟΥ ΤΟΜΕΑ , ΔΥΟ  ΥΠΑΛΛΗΛΩΝ ,ΤΟΥ ΤΜΗΜΑΤΟΣ ΦΥΤΙΚΗΣ & ΖΩΙΚΗΣ ΠΑΡΑΓΩΓΗΣ ΤΗΣ ΔΑΟΚ, Π.Ε. ΚΙΛΚΙΣ ΓΙΑ ΤΟ Γ΄ ΤΡΙΜΗΝΟ ΕΤΟΥΣ 2026. (ΙΟΥΛΙΟΣ,ΑΥΓΟΥΣΤΟΣΣΕΠΤΕΜΒΡΙΟΣ)",
+ "issueDate": 1791925200000,
+ "organizationId": "5009",
+ "signerIds": [
+  "900000001"
+ ],
+ "unitIds": [
+  "100026211"
+ ],
+ "decisionTypeId": "Β.2.1",
+ "thematicCategoryIds": [
+  "20"
+ ],
+ "extraFieldValues": {
+  "org": {
+   "afm": "997612598",
+   "afmCountry": "EL",
+   "name": "ΠΕΡΙΦΕΡΕΙΑ ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ",
+   "afmType": "EL"
+  },
+  "sponsor": [
+   {
+    "kae": "03.0721.2420403001",
+    "expenseAmount": {
+     "amount": 130.0,
+     "currency": "EUR"
+    },
+    "sponsorAFMName": {
+     "afm": "000000012",
+     "name": "ΔΟΚΙΜΑΣΤΙΚΟΣ ΥΠΑΛΛΗΛΟΣ Α",
+     "afmType": "EL"
+    },
+    "cpv": ""
+   },
+   {
+    "kae": "03.0721.2420404001",
+    "expenseAmount": {
+     "amount": 297.64,
+     "currency": "EUR"
+    },
+    "sponsorAFMName": {
+     "afm": "000000024",
+     "name": "ΔΟΚΙΜΑΣΤΙΚΟΣ ΥΠΑΛΛΗΛΟΣ Β",
+     "afmType": "EL"
+    },
+    "cpv": ""
+   },
+   {
+    "kae": "03.0721.2420404001",
+    "expenseAmount": {
+     "amount": 294.52,
+     "currency": "EUR"
+    },
+    "sponsorAFMName": {
+     "afm": "000000012",
+     "name": "ΔΟΚΙΜΑΣΤΙΚΟΣ ΥΠΑΛΛΗΛΟΣ Α",
+     "afmType": "EL"
+    },
+    "cpv": ""
+   },
+   {
+    "kae": "03.0721.2420403001",
+    "expenseAmount": {
+     "amount": 140.0,
+     "currency": "EUR"
+    },
+    "sponsorAFMName": {
+     "afm": "000000024",
+     "name": "ΔΟΚΙΜΑΣΤΙΚΟΣ ΥΠΑΛΛΗΛΟΣ Β",
+     "afmType": "EL"
+    },
+    "cpv": ""
+   }
+  ],
+  "relatedAnalipsiYpoxreosis": null,
+  "relatedDecisions": null,
+  "documentType": "ΠΡΑΞΗ",
+  "adam": null,
+  "decisionDocumentHash": null
+ },
+ "privateData": false,
+ "ada": "93ΨΣ7ΛΛ-8ΒΘ",
+ "publishTimestamp": 1793777308143,
+ "submissionTimestamp": 1793777308143,
+ "versionId": "438b57c0-ba5a-426d-880c-e1ad13a4b09b",
+ "status": "PUBLISHED",
+ "url": "https://diavgeia.gov.gr/luminapi/api/decisions/93ΨΣ7ΛΛ-8ΒΘ",
+ "documentUrl": "https://diavgeia.gov.gr/doc/93ΨΣ7ΛΛ-8ΒΘ",
+ "documentChecksum": null,
+ "attachments": [],
+ "warnings": null,
+ "correctedVersionId": null
+}

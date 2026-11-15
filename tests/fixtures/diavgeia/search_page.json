@@ -1,0 +1,347 @@
+{
+ "info": {
+  "query": "submissionTimestamp:[DT(2026-10-14T00:00:00+03:00) TO DT(2026-11-14T02:35:28+02:00)] AND issueDate:[DT(2026-10-14T00:00:00+03:00) TO DT(2026-10-14T00:00:00+03:00)] AND status:\"Αναρτημένη\"",
+  "page": 0,
+  "size": 500,
+  "actualSize": 500,
+  "total": 1341,
+  "order": "recent"
+ },
+ "decisions": [
+  {
+   "protocolNumber": "000469Κ",
+   "adam": null,
+   "subject": "ΠΛΗΡΩΜΗ ΔΑΠΑΝΗΣ ΜΕΤΑΚΙΝΗΣΗΣ ΕΝΤΟΣ ΚΑΙ ΕΚΤΟΣ ΕΔΡΑΣ ΓΙΑ ΤΟ ΠΡΟΓΡΑΜΜΑ ΠΑΡΑΚΟΛΟΥΘΗΣΗΣ ΑΜΠΕΛΟΟΙΝΙΚΟΥ ΤΟΜΕΑ , ΔΥΟ  ΥΠΑΛΛΗΛΩΝ ,ΤΟΥ ΤΜΗΜΑΤΟΣ ΦΥΤΙΚΗΣ & ΖΩΙΚΗΣ ΠΑΡΑΓΩΓΗΣ ΤΗΣ ΔΑΟΚ, Π.Ε. ΚΙΛΚΙΣ ΓΙΑ ΤΟ Γ΄ ΤΡΙΜΗΝΟ ΕΤΟΥΣ 2026. (ΙΟΥΛΙΟΣ,ΑΥΓΟΥΣΤΟΣΣΕΠΤΕΜΒΡΙΟΣ)",
+   "issueDate": 1791925200000,
+   "organizationId": "5009",
+   "signerIds": [
+    "900000001"
+   ],
+   "unitIds": [
+    "100026211"
+   ],
+   "decisionTypeId": "Β.2.1",
+   "thematicCategoryIds": [
+    "20"
+   ],
+   "extraFieldValues": {
+    "org": {
+     "afm": "997612598",
+     "afmCountry": "EL",
+     "name": "ΠΕΡΙΦΕΡΕΙΑ ΚΕΝΤΡΙΚΗΣ ΜΑΚΕΔΟΝΙΑΣ",
+     "afmType": "EL"
+    },
+    "sponsor": [
+     {
+      "kae": "03.0721.2420403001",
+      "expenseAmount": {
+       "amount": 130.0,
+       "currency": "EUR"
+      },
+      "sponsorAFMName": {
+       "afm": "000000012",
+       "name": "ΔΟΚΙΜΑΣΤΙΚΟΣ ΥΠΑΛΛΗΛΟΣ Α",
+       "afmType": "EL"
+      },
+      "cpv": ""
+     },
+     {
+      "kae": "03.0721.2420404001",
+      "expenseAmount": {
+       "amount": 297.64,
+       "currency": "EUR"
+      },
+      "sponsorAFMName": {
+       "afm": "000000024",
+       "name": "ΔΟΚΙΜΑΣΤΙΚΟΣ ΥΠΑΛΛΗΛΟΣ Β",
+       "afmType": "EL"
+      },
+      "cpv": ""
+     },
+     {
+      "kae": "03.0721.2420404001",
+      "expenseAmount": {
+       "amount": 294.52,
+       "currency": "EUR"
+      },
+      "sponsorAFMName": {
+       "afm": "000000012",
+       "name": "ΔΟΚΙΜΑΣΤΙΚΟΣ ΥΠΑΛΛΗΛΟΣ Α",
+       "afmType": "EL"
+      },
+      "cpv": ""
+     },
+     {
+      "kae": "03.0721.2420403001",
+      "expenseAmount": {
+       "amount": 140.0,
+       "currency": "EUR"
+      },
+      "sponsorAFMName": {
+       "afm": "000000024",
+       "name": "ΔΟΚΙΜΑΣΤΙΚΟΣ ΥΠΑΛΛΗΛΟΣ Β",
+       "afmType": "EL"
+      },
+      "cpv": ""
+     }
+    ],
+    "relatedAnalipsiYpoxreosis": null,
+    "relatedDecisions": null,
+    "documentType": "ΠΡΑΞΗ",
+    "adam": null,
+    "decisionDocumentHash": null
+   },
+   "privateData": false,
+   "ada": "93ΨΣ7ΛΛ-8ΒΘ",
+   "publishTimestamp": 1793777308143,
+   "submissionTimestamp": 1793777308143,
+   "versionId": "438b57c0-ba5a-426d-880c-e1ad13a4b09b",
+   "status": "PUBLISHED",
+   "url": "https://diavgeia.gov.gr/luminapi/api/decisions/93ΨΣ7ΛΛ-8ΒΘ",
+   "documentUrl": "https://diavgeia.gov.gr/doc/93ΨΣ7ΛΛ-8ΒΘ",
+   "documentChecksum": null,
+   "attachments": [],
+   "warnings": null,
+   "correctedVersionId": null
+  },
+  {
+   "protocolNumber": "43063",
+   "adam": null,
+   "subject": "Έκτακτη μίσθωση των μηχανήματων έργου & οχημάτων του αναδόχου εταιρεία \"Δοκιμαστικός Ανάδοχος & ΣΙΑ Ε.Ε\", για την κατεπείγοντα συνδρομή στην αντιμετώπιση πυρκαγιάς σε κτηνοτροφική μονάδα στην περιοχή ",
+   "issueDate": 1791925200000,
+   "organizationId": "6019",
+   "signerIds": [
+    "900000002"
+   ],
+   "unitIds": [
+    "90269"
+   ],
+   "decisionTypeId": "Β.2.2",
+   "thematicCategoryIds": [
+    "20"
+   ],
+   "extraFieldValues": {
+    "org": null,
+    "skipVatReason": null,
+    "sponsor": [
+     {
+      "expenseAmount": {
+       "amount": 744.0,
+       "currency": "EUR"
+      },
+      "sponsorAFMName": {
+       "afm": "000000036",
+       "afmType": "EL",
+       "afmCountry": "",
+       "name": "Δοκιμαστικός Ανάδοχος & ΣΙΑ Ε.Ε",
+       "noVATOrg": null
+      }
+     }
+    ],
+    "relatedEkgrisiDapanis": null,
+    "relatedDecisions": null,
+    "documentType": "ΠΡΑΞΗ",
+    "adam": "26PAY020192752",
+    "decisionDocumentHash": "0f257f558f7558d3e37bc9e48ca2875a43a1993fa1ddb5274a20e2260b18c2db"
+   },
+   "privateData": false,
+   "ada": "ΡΤΕΨΩΨΟ-ΩΙΓ",
+   "publishTimestamp": 1794569526136,
+   "submissionTimestamp": 1794569526136,
+   "versionId": "501dc3bf-917f-4070-a9cb-c0306a918097",
+   "status": "PUBLISHED",
+   "url": "https://diavgeia.gov.gr/luminapi/api/decisions/ΡΤΕΨΩΨΟ-ΩΙΓ",
+   "documentUrl": "https://diavgeia.gov.gr/doc/ΡΤΕΨΩΨΟ-ΩΙΓ",
+   "documentChecksum": null,
+   "attachments": [],
+   "warnings": null,
+   "correctedVersionId": null
+  },
+  {
+   "protocolNumber": "0120-2026-10-734",
+   "adam": null,
+   "subject": "Προμήθεια τριών σταθμών πλύσης οφθαλμών",
+   "issueDate": 1791925200000,
+   "organizationId": "99221129",
+   "signerIds": [
+    "900000003"
+   ],
+   "unitIds": [
+    "100104361"
+   ],
+   "decisionTypeId": "Β.1.3",
+   "thematicCategoryIds": [
+    "68"
+   ],
+   "extraFieldValues": {
+    "financialYear": 2026,
+    "budgettype": "Τακτικός Προϋπολογισμός",
+    "entryNumber": null,
+    "partialead": false,
+    "recalledExpenseDecision": null,
+    "amountWithVAT": {
+     "amount": 3534.0,
+     "currency": "EUR"
+    },
+    "amountWithKae": null,
+    "relatedPartialADA": null,
+    "relatedDecisions": null,
+    "documentType": "ΠΡΑΞΗ",
+    "adam": "26REQ020194481",
+    "decisionDocumentHash": "0b9c07af715e34468331b6507ad9c9cd0c427eb9a9108a438a1202fd77e2ceb6"
+   },
+   "privateData": false,
+   "ada": "Ρ9ΘΗ469Η1Γ-Ο24",
+   "publishTimestamp": 1794574513498,
+   "submissionTimestamp": 1794574513498,
+   "versionId": "0170c8c9-aa1a-4622-b9c1-7cd06d2487a3",
+   "status": "PUBLISHED",
+   "url": "https://diavgeia.gov.gr/luminapi/api/decisions/Ρ9ΘΗ469Η1Γ-Ο24",
+   "documentUrl": "https://diavgeia.gov.gr/doc/Ρ9ΘΗ469Η1Γ-Ο24",
+   "documentChecksum": null,
+   "attachments": [],
+   "warnings": null,
+   "correctedVersionId": null
+  },
+  {
+   "protocolNumber": "89344",
+   "adam": null,
+   "subject": "ΠΡΟΜΗΘΕΙΑ ΛΟΙΠΟΝ ΑΓΑθΩΝ",
+   "issueDate": 1791925200000,
+   "organizationId": "6",
+   "signerIds": [
+    "900000004"
+   ],
+   "unitIds": [
+    "100001335"
+   ],
+   "decisionTypeId": "Δ.1",
+   "thematicCategoryIds": [
+    "10004"
+   ],
+   "extraFieldValues": {
+    "person": [
+     {
+      "afm": "000000048",
+      "afmCountry": "EL",
+      "name": "ΔΟΚΙΜΑΣΤΙΚΗ ΕΤΑΙΡΕΙΑ Α.Ε",
+      "afmType": "EL"
+     }
+    ],
+    "awardAmount": {
+     "amount": 5104.21,
+     "currency": "EUR"
+    },
+    "assignmentType": "Προμήθειες",
+    "cpv": [
+     "39710000-2"
+    ],
+    "textRelatedADA": null,
+    "relatedDecisions": null,
+    "documentType": "ΠΡΑΞΗ",
+    "adam": "26AWRD020180914",
+    "decisionDocumentHash": "f3bfddeb8025f75e0a85220885e5ab97a1402351d2ee5d9de3b4efa6186cb53c"
+   },
+   "privateData": false,
+   "ada": "Ρ2ΒΠ6-4ΣΗ",
+   "publishTimestamp": 1794479478369,
+   "submissionTimestamp": 1794479478369,
+   "versionId": "2894c837-adbd-416d-85f8-91aa904efccf",
+   "status": "PUBLISHED",
+   "url": "https://diavgeia.gov.gr/luminapi/api/decisions/Ρ2ΒΠ6-4ΣΗ",
+   "documentUrl": "https://diavgeia.gov.gr/doc/Ρ2ΒΠ6-4ΣΗ",
+   "documentChecksum": null,
+   "attachments": [],
+   "warnings": null,
+   "correctedVersionId": null
+  },
+  {
+   "protocolNumber": "3277",
+   "adam": null,
+   "subject": "ΜΙΣΘΩΣΗ (ΠΡΟΜΗΘΕΙΑ) ΜΗΧΑΝΗΜΑΤΟΣ ΕΡΓΟΥ ΓΙΑ ΤΙΣ ΑΝΑΓΚΕΣ ΛΕΙΤΟΥΡΓΙΑΣ ΤΟΥ ΧΥΤΥ ΑΜΦΙΣΣΑΣ ",
+   "issueDate": 1791925200000,
+   "organizationId": "100016876",
+   "signerIds": [
+    "900000005"
+   ],
+   "unitIds": [
+    "100059080"
+   ],
+   "decisionTypeId": "Δ.2.1",
+   "thematicCategoryIds": [
+    "52"
+   ],
+   "extraFieldValues": {
+    "cpv": [
+     "43210000-8"
+    ],
+    "contestProgressType": "Ανοιχτή διαδικασία",
+    "manifestSelectionCriterion": "Βάσει τιμής",
+    "manifestContractType": "Προμήθειες",
+    "orgBudgetCode": null,
+    "estimatedAmount": {
+     "amount": 160000.0,
+     "currency": "EUR"
+    },
+    "textRelatedADA": null,
+    "relatedDecisions": null,
+    "documentType": "ΠΡΑΞΗ",
+    "adam": "26PROC020057770",
+    "decisionDocumentHash": "c06cfd353ec3b577d283fc2ff0d2cb6cc6263f952b989c2bd72319c045e69d3e"
+   },
+   "privateData": false,
+   "ada": "9ΕΦΕ4653Σ5-ΒΥΞ",
+   "publishTimestamp": 1792999325154,
+   "submissionTimestamp": 1792999325154,
+   "versionId": "7a86239d-06e4-4714-9bfe-be597e49622d",
+   "status": "PUBLISHED",
+   "url": "https://diavgeia.gov.gr/luminapi/api/decisions/9ΕΦΕ4653Σ5-ΒΥΞ",
+   "documentUrl": "https://diavgeia.gov.gr/doc/9ΕΦΕ4653Σ5-ΒΥΞ",
+   "documentChecksum": null,
+   "attachments": [],
+   "warnings": null,
+   "correctedVersionId": null
+  },
+  {
+   "protocolNumber": "1310/2026",
+   "adam": null,
+   "subject": "ΚΑΤΑΚΥΡΩΣΗ ΕΟΡΤΑΣΤΙΚΟΥ ΔΙΑΚΟΣΜΟΥ",
+   "issueDate": 1791925200000,
+   "organizationId": "6114",
+   "signerIds": [
+    "900000006"
+   ],
+   "unitIds": [
+    "100097881"
+   ],
+   "decisionTypeId": "Δ.2.2",
+   "thematicCategoryIds": [
+    "10004"
+   ],
+   "extraFieldValues": {
+    "person": null,
+    "awardAmount": {
+     "amount": 346561.4,
+     "currency": "EUR"
+    },
+    "textRelatedADA": null,
+    "relatedDecisions": null,
+    "documentType": "ΠΡΑΞΗ",
+    "adam": "26AWRD020177058",
+    "decisionDocumentHash": "dee4bf3f3f29245f240bcb03c35fd388766df0323e11593c7c7d289f7599103a"
+   },
+   "privateData": false,
+   "ada": "98ΗΝΩΡ5-2ΜΒ",
+   "publishTimestamp": 1794469765963,
+   "submissionTimestamp": 1794469765963,
+   "versionId": "5ef724bf-edb1-46b9-9d32-f26bc2831276",
+   "status": "PUBLISHED",
+   "url": "https://diavgeia.gov.gr/luminapi/api/decisions/98ΗΝΩΡ5-2ΜΒ",
+   "documentUrl": "https://diavgeia.gov.gr/doc/98ΗΝΩΡ5-2ΜΒ",
+   "documentChecksum": null,
+   "attachments": [],
+   "warnings": null,
+   "correctedVersionId": null
+  }
+ ]
+}
