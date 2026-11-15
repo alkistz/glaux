@@ -81,6 +81,15 @@ audits or investigations, so every flag needs verification with additional infor
 - An open corpus of about 1 million Diavgeia decisions with PDF text extracted (arXiv 2512.05647); may save
   extraction work.
 - Third-party Diavgeia scrapers and aggregators exist; none verified.
+- Diavgeia AI (https://diavgeia-ai.gr, checked 2026-11-15 from its public pages only): a free,
+  independent search front end by one developer (Christos Tzepeloglou) over the Diavgeia API, with a
+  KIMDIS section. Keyword search with exact phrase, filters for body, type, amount, date, thematic
+  category, protocol number and payee tax ID. Statistics come from the latest 100 posts, which
+  suggests live API queries rather than a local corpus. No stated semantic search, decision linking,
+  supplier analysis, risk flags, methodology, privacy notice or source code. It covers most of a
+  "better Diavgeia search", so glaux's public MVP should lead with analysis over the full corpus
+  (authority pages, decision chains, Diavgeia to KIMDIS joins) and use search as the way in.
+  Possible collaborator later.
 
 Gap this project targets: joining Diavgeia, KIMDIS and registry data for Greece, including the
 below-threshold space the EU-level tools barely see.

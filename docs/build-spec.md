@@ -168,7 +168,7 @@ of 1,341) and one deep page of 1 to 14 October (500 of 237,596). Raw responses a
 | A9 | `/organizations` and `/types` list everything. | Confirmed. One response each: 43 types; 5,435 organisations (2.5 MB, 19 s). Organisations include `vatNumber`, `supervisorId`, and an official's email (`odeManagerEmail`), which we do not copy into derived tables. |
 | A10 | Corrections keep the ADA with a new `versionId`; revocations change `status`. | Partly confirmed. `/decisions/{ada}/versionlog.json` lists versions with status. On 2026-10-14, `status=all` returns 1,413 against 1,341 published. A revoked record has not been seen yet. |
 | A11 | Decisions are published days or weeks after their issue date. | Confirmed, strongly. Decisions issued on 2026-10-14 were still arriving on 2026-11-13. Lag in a month sample: median 3 days. |
-| A12 | No server-side filter on amount. | Not checked. |
+| A12 | No server-side filter on amount. | Not checked. Diavgeia AI offers amount and payee tax ID filters, which hints that the API (or its advanced search) supports them. Check with the next probe requests. |
 | A13 | Rate limits unknown. | 19 requests at 1 per second, no 429s, no limit headers. Still unknown. |
 | A14 | `issueDate` is Athens midnight. | Wrong. About 70% are midnight UTC (03:00 Athens in summer), 30% Athens midnight. A one-day range matches a single instant, so it only returns the second group. The Athens-local date of the timestamp is correct for both. Query windows must cover the whole day. |
 | A15 | ADAM is two year digits, a type, nine digits. | Confirmed in `extraFieldValues.adam` (467 of 1,000 sampled): `PAY`, `REQ`, `AWRD`, `PROC` seen. Main join key to KIMDIS. |
